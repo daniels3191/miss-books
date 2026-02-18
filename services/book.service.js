@@ -5,11 +5,22 @@ const BOOK_KEY = 'bookDB'
 _createBooks()
 
 export const bookService ={
-    query
+    query,
+    get,
+    remove
 }
 
 function query() {
     return storageService.query(BOOK_KEY)
+}
+
+function get(bookID){
+    return storageService.get(BOOK_KEY, bookID)
+}
+
+function remove(bookID){
+    return storageService.remove(BOOK_KEY, bookID)
+
 }
 
 

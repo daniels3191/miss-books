@@ -1,6 +1,8 @@
 const { useState, useEffect } = React
 
+import { BookList } from '../cmps/BookList.jsx'
 import { bookService } from '../services/book.service.js'
+
 
 
 export function BookIndex() {
@@ -20,7 +22,9 @@ export function BookIndex() {
     </div>
 
     return <div className="book-index">
-        <pre>{JSON.stringify(books, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(books, null, 2)}</pre> */}
+        <BookList books = {books} />
+        
     </div>
 
 }
