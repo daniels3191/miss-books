@@ -10,15 +10,15 @@ window.bookService = bookService
 
 
 export function RootCmp() {
-    const [page, setPage] = useState('home')
+    const [page, setPage] = useState('books')
 
     return <section className="app main-layout">
         <AppHeader page={page} onSetPage={setPage} />
         <main>
             {page === 'home' && <Home />}
             {page === 'about' && <About />}
-            <BookIndex />
-            
+            {page === 'books' &&  <BookIndex />}
+           
         </main>
     </section>
 }

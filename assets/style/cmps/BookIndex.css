@@ -1,0 +1,36 @@
+.loader {
+    display: flex;
+    justify-content: center;
+    margin-block-start: 200px;
+}
+
+
+.book-list ul {
+    gap: 1em;
+}
+
+.book-list li {
+    display: grid;
+    padding: 1em;
+    background-color: var(--clr1bg-light);
+}
+
+.book-preview {
+   margin-block-end: 15px;
+}
+
+
+.book-preview h1 {
+    font-size: 1.5em;
+}
+
+
+.action-container {
+    display: flex;
+    align-items: center;
+    place-self: end;
+
+    gap: 10px;
+
+
+}

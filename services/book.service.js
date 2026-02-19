@@ -28,8 +28,9 @@ function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
         books = []
+        const booksTitle = ['GWENT', 'BETWEEN HERE AND GONE', 'MAGIC LAMTERN']
         for (let i = 0; i < 3; i++) {
-            books.push(_createBook(i))
+            books.push(_createBook(i, booksTitle[i]))
         }
         utilService.saveToStorage(BOOK_KEY, books)
         console.log(books);
@@ -37,13 +38,13 @@ function _createBooks() {
     }
 }
 
-function _createBook(idx) {
+function _createBook(idx, title) {
     const currency = ['EUR', 'USD', 'NIS']
     const book = {}
     book.id = utilService.makeId()
-    book.title = utilService.makeLorem(2)
+    book.title = title
     book.description = utilService.makeLorem(10)
-    book.thumbnail = `http://ca.org/books-photos/${idx + 1}.jpg`
+    book.thumbnail = `./assets/img/${idx + 1}.jpg`
     book.listPrice = {
         "amount": utilService.getRandomIntInclusive(30, 199),
         "currencyCode": currency[utilService.getRandomIntInclusive(0, 2)],

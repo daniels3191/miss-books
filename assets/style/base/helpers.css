@@ -23,7 +23,7 @@
 /* Grid Helpers */
 
 .fluid-grid {
-    --min-column-width: 180px;
+    --min-column-width: 220px;
 
     display: grid;
     grid-template-columns: 
