@@ -11,6 +11,7 @@
 
 .book-list li {
     display: grid;
+    position: relative;
     padding: 1em;
     background-color: var(--clr1bg-light);
 }
@@ -22,6 +23,7 @@
 
 .book-preview h1 {
     font-size: 1.5em;
+    margin-inline-end: 15px;
 }
 
 
@@ -39,4 +41,12 @@
 
 .book-preview .green{
     color: green;
+}
+
+
+.on-sale-sign img{
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    width: 20px;
 }

@@ -19,7 +19,7 @@ export function BookDetails({ book, onClearSelectedBook }) {
         return str
     }
 
-    return <article className="car-details">
+    return <article className="book-details">
         {/* <pre>{JSON.stringify(book, null, 2)}</pre> */}
         <h1>{book.title}</h1>
         <h2>{book.subtitle}</h2>
@@ -27,6 +27,8 @@ export function BookDetails({ book, onClearSelectedBook }) {
         <p>Publishe Date: {book.publishedDate} {pablishedDateDescription()}</p>
         <p>Description: {book.description}</p>
         <p>Page Count: {book.pageCount} {pageCountDescription()}</p>
+        <p className="price">Price: {book.listPrice.amount} {book.listPrice.isOnSale && <img src="./assets/img/sale-tag.svg" alt="" /> }</p>
+        <p>Is On Sale: </p>
         <img src={book.thumbnail} alt="" />
         <div>
             <button

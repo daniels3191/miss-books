@@ -10,6 +10,7 @@ export function BookPreview({book}){
 
     return <article className="book-preview">
         <h1>{book.title}</h1>
+        <span className="on-sale-sign">{book.listPrice.isOnSale && <img src="./assets/img/sale-tag.svg" alt="" />}</span>
         <p className={classList()}>Price: {book.listPrice.amount}</p>
         <img src={book.thumbnail} alt="" />
         <p>Page Count: {book.pageCount}</p>
