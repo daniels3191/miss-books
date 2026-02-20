@@ -1,0 +1,14 @@
+.book-filter{
+    display: flex;
+    justify-items: center;
+    gap: 1em;
+
+    padding: 1em;
+    background-color: lightblue;
+    margin-block-start: 1em;
+}
+
+.book-filter p{
+    margin: 0;
+    padding: 0;
+}

@@ -31,6 +31,12 @@
     place-self: end;
 
     gap: 10px;
+}
 
+.book-preview .red{
+    color: red;
+}
 
+.book-preview .green{
+    color: green;
 }

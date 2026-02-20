@@ -1,12 +1,39 @@
 
-export function BookDetails({book, onClearSelectedBook}){
+export function BookDetails({ book, onClearSelectedBook }) {
 
-    return <section className="car-details">
-                <pre>{JSON.stringify(book, null, 2)}</pre>
-                <div>
-                <button onClick={onClearSelectedBook} className="btn-clear-selected-book">Back</button>
-                </div>
-        
-    </section>
+    function pageCountDescription(){
+        let str = ''
+        if(book.pageCount > 500) str = '(Serious Reading)'
+        else if(book.pageCount > 200) str = '(Descent Reading)'
+        else if(book.pageCount < 100) str = '(Light Reading)'
+
+        return str
+    }
+
+    function pablishedDateDescription(){
+        const fullYear = (new Date()).getFullYear()
+        let str = ''
+        if(fullYear - book.publishedDate > 10) str = '(Vintage)'
+        else if (fullYear - book.publishedDate < 1) str = '(New)'
+
+        return str
+    }
+
+    return <article className="car-details">
+        {/* <pre>{JSON.stringify(book, null, 2)}</pre> */}
+        <h1>{book.title}</h1>
+        <h2>{book.subtitle}</h2>
+        <p>Authors: {book.authors}</p>
+        <p>Publishe Date: {book.publishedDate} {pablishedDateDescription()}</p>
+        <p>Description: {book.description}</p>
+        <p>Page Count: {book.pageCount} {pageCountDescription()}</p>
+        <img src={book.thumbnail} alt="" />
+        <div>
+            <button
+                onClick={onClearSelectedBook}
+                className="btn-clear-selected-book">Back</button>
+        </div>
+
+    </article>
 
 }
