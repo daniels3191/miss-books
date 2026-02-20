@@ -1,0 +1,9 @@
+
+.long-txt button {
+    color: white;
+    background-color: var(--clr1bg);
+    padding: 5px 10px;
+    border: 0;
+    margin-block-end: 15px;
+}
+

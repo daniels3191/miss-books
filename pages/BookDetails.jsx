@@ -1,3 +1,5 @@
+import { LongTxt } from "../cmps/LongTxt.jsx"
+
 
 export function BookDetails({ book, onClearSelectedBook }) {
 
@@ -20,15 +22,16 @@ export function BookDetails({ book, onClearSelectedBook }) {
     }
 
     return <article className="book-details">
+       
         {/* <pre>{JSON.stringify(book, null, 2)}</pre> */}
         <h1>{book.title}</h1>
         <h2>{book.subtitle}</h2>
         <p>Authors: {book.authors}</p>
         <p>Publishe Date: {book.publishedDate} {pablishedDateDescription()}</p>
-        <p>Description: {book.description}</p>
+        {/* <p>Description: {book.description}</p> */}
+        <p className="description">Description: <LongTxt txt={book.description}/></p> 
         <p>Page Count: {book.pageCount} {pageCountDescription()}</p>
         <p className="price">Price: {book.listPrice.amount} {book.listPrice.isOnSale && <img src="./assets/img/sale-tag.svg" alt="" /> }</p>
-        <p>Is On Sale: </p>
         <img src={book.thumbnail} alt="" />
         <div>
             <button
