@@ -2,17 +2,16 @@ const { useState, useEffect } = React
 
 export function BookFilter({ filterBy, setFilterBy }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-    
- useEffect(() => {
 
-    setFilterBy(filterByToEdit)
+    useEffect(() => {
 
- }, [filterByToEdit])
+        setFilterBy(filterByToEdit)
+    }, [filterByToEdit])
 
     function handleChange(ev) {
 
         const { type, value, name } = ev.target
-        setFilterByToEdit(prev => ({ ...prev, [name]: type === 'text' ? value : +value}))
+        setFilterByToEdit(prev => ({ ...prev, [name]: type === 'number' ? +value : value }))
     }
 
     return <div className="book-filter">
@@ -26,9 +25,22 @@ export function BookFilter({ filterBy, setFilterBy }) {
         <input type="number"
             value={filterByToEdit.price || ''}
             onChange={ev => handleChange(ev)}
-            name="price" 
+            name="price"
             placeholder="Price" />
-            
+
+        <label htmlFor="categories">Category:</label>
+        <select id="categories" name="category" type='text'
+            value={filterByToEdit.category}
+            onChange={ev => handleChange(ev)}
+            placeholder='category'>
+            {/* <option value={filterByToEdit.title} selected>{filterByToEdit.title}</option> */}
+            <option value="Love">Love</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Poetry">Poetry</option>
+            <option value="Computers">Computers</option>
+            <option value="Religion">Religion</option>
+        </select>
+
     </div>
 
 }

@@ -12,14 +12,19 @@ export const bookService = {
 }
 
 function query(filterBy = {}) {
+
     return storageService.query(BOOK_KEY)
         .then(books => {
+
             if (filterBy.title) {
                 const regExp = new RegExp(filterBy.title, 'i')
                 books = books.filter(book => regExp.test(book.title))
             }
             if (filterBy.price) {
                 books = books.filter(book => filterBy.price <= book.listPrice.amount)
+            }
+            if (filterBy.category) {
+                books = books.filter(book => filterBy.category === book.categories[0])
             }
             return books
         })
@@ -34,38 +39,38 @@ function remove(bookID) {
 
 }
 
-function getDefaultFilter(filterBy = { title: '', price: 0 }) {
-    return { title: filterBy.title, price: filterBy.price }
+function getDefaultFilter(filterBy = { title: '', price: 0, category: '' }) {
+    return { title: filterBy.title, price: filterBy.price, category: filterBy.category }
 }
 
 function _createBooks() {
     let books = utilService.loadFromStorage(BOOK_KEY)
     if (!books || !books.length) {
-    const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
-    books = []
-    for (let i = 0; i < 20; i++) {
-        const book = {
-            id: utilService.makeId(),
-            title: utilService.makeLorem(2),
-            subtitle: utilService.makeLorem(4),
-            authors: [
-                utilService.makeLorem(1)
-            ],
-            publishedDate: utilService.getRandomIntInclusive(1950, 2026),
-            description: utilService.makeLorem(20),
-            pageCount: utilService.getRandomIntInclusive(20, 600),
-            categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
-            thumbnail: `./assets/img/${i + 1}.jpg`,
-            language: "en",
-            listPrice: {
-                amount: utilService.getRandomIntInclusive(5, 550),
-                currencyCode: "EUR",
-                isOnSale: Math.random() > 0.7
+        const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+        books = []
+        for (let i = 0; i < 20; i++) {
+            const book = {
+                id: utilService.makeId(),
+                title: utilService.makeLorem(2),
+                subtitle: utilService.makeLorem(4),
+                authors: [
+                    utilService.makeLorem(1)
+                ],
+                publishedDate: utilService.getRandomIntInclusive(1950, 2026),
+                description: utilService.makeLorem(20),
+                pageCount: utilService.getRandomIntInclusive(20, 600),
+                categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+                thumbnail: `./assets/img/${i + 1}.jpg`,
+                language: "en",
+                listPrice: {
+                    amount: utilService.getRandomIntInclusive(5, 550),
+                    currencyCode: "EUR",
+                    isOnSale: Math.random() > 0.7
+                }
             }
+            books.push(book)
         }
-        books.push(book)
     }
-}
     utilService.saveToStorage(BOOK_KEY, books)
 }
 

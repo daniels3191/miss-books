@@ -2,12 +2,11 @@ import { BookPreview } from "./BookPreview.jsx";
 
 export function BookList({ books, onRemoveBook, onSelectedBook }) {
 
-
     return <section className="book-list">
         <ul className="fluid-grid">
             {books.map(book => <li key={book.id}>
-                <BookPreview book={book} />
 
+                <BookPreview book={book} />
                 <div className="action-container">
                     <button
                         onClick={() => onSelectedBook(book)}
