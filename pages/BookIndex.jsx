@@ -7,7 +7,6 @@ import { BookDetails } from './BookDetails.jsx'
 
 export function BookIndex() {
     const [books, setBooks] = useState(null)
-    const [selectedBook, setSelectedBook] = useState(null)
     const [filterBy, setFilterBy] = useState(bookService.getDefaultFilter())
 
     useEffect(() => {
@@ -32,20 +31,16 @@ export function BookIndex() {
     </div>
 
     return <div className="book-index">
-        {!selectedBook &&
-            <React.Fragment>
-                <BookFilter
-                    filterBy={filterBy}
-                    setFilterBy={setFilterBy} />
-                <BookList
-                    books={books} onRemoveBook={onRemoveBook}
-                    onSelectedBook={setSelectedBook} />
-            </React.Fragment>}
 
-        {selectedBook &&
-            <BookDetails
-                book={selectedBook}
-                onClearSelectedBook={() => setSelectedBook(null)} />}
+        <React.Fragment>
+            <BookFilter
+                filterBy={filterBy}
+                setFilterBy={setFilterBy} />
+            <BookList
+                books={books} onRemoveBook={onRemoveBook} />
+        </React.Fragment>
+
+
     </div>
 }
 

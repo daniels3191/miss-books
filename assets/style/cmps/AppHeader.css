@@ -32,3 +32,15 @@ a.active {
         color: var(--clr2bg-light);
     }
 }
+
+a {
+	&.active {
+		color: rgb(241, 212, 241);
+		font-weight: 600;
+		text-decoration: underline;
+	}
+
+	&:not(:last-child) {
+		margin-inline-end: 0.5em;
+	}
+}

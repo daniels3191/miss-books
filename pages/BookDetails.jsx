@@ -1,7 +1,21 @@
+const { useState, useEffect } = React
+const { Link, useParams } = ReactRouterDOM
+
+import { bookService } from '../services/book.service.js'
 import { LongTxt } from "../cmps/LongTxt.jsx"
 
+export function BookDetails() {
 
-export function BookDetails({ book, onClearSelectedBook }) {
+    const [book, setBook] = useState(null)
+
+    const params = useParams()
+    console.log(params);
+
+    useEffect(() => {
+        bookService.get(params.id)
+            .then(setBook)
+
+    }, [book])
 
     function pageCountDescription() {
         let str = ''
@@ -21,6 +35,12 @@ export function BookDetails({ book, onClearSelectedBook }) {
         return str
     }
 
+    if (!book) return <div className="loader">
+        <img src="./assets/img/loader.svg" alt="" />
+    </div>
+
+    console.log(book);
+
     return <article className="book-details">
 
         {/* <pre>{JSON.stringify(book, null, 2)}</pre> */}
@@ -33,11 +53,11 @@ export function BookDetails({ book, onClearSelectedBook }) {
         <p>Page Count: {book.pageCount} {pageCountDescription()}</p>
         <p className="price">Price: {book.listPrice.amount} {book.listPrice.isOnSale && <img src="./assets/img/sale-tag.svg" alt="" />}</p>
         <img src={book.thumbnail} alt="" />
-        <div>
-            <button
-                onClick={onClearSelectedBook}
-                className="btn-clear-selected-book">Back</button>
-        </div>
+        <nav>
+            <Link to={`/book/${book.prevBookId}`}><button>Prev</button></Link>
+            <Link to={`/book/${book.nextBookId}`}><button>Next</button></Link>
+            <Link to='/book'><button>Back</button></Link>
+        </nav>
 
     </article>
 
