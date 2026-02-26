@@ -6,7 +6,7 @@ const { useState } = React
 import { AppHeader } from "./cmps/AppHeader.jsx"
 import { Home } from "./pages/Home.jsx"
 import { About } from "./pages/About.jsx"
-import { BookIndex } from "./pages/bookIndex.jsx"
+import { BookIndex } from "./pages/BookIndex.jsx"
 import { BookDetails } from "./pages/BookDetails.jsx"
 import { bookService } from './services/book.service.js'
 
