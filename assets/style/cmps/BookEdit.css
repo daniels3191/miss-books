@@ -1,0 +1,23 @@
+.book-edit form {
+    display: grid;
+    gap: 10px;
+    max-width: 50%;
+    padding: 10px;
+    background-color: var(--clr1bg-light);
+    margin-inline: auto;
+     margin-block-start: 1em;
+
+    input {
+        grid-column: 2;
+
+    }
+
+    label {
+        max-width: auto;
+    }
+
+    button {
+        grid-column: 2;
+        justify-self: end;
+    }
+}

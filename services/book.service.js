@@ -8,7 +8,9 @@ export const bookService = {
     query,
     get,
     remove,
-    getDefaultFilter
+    save,
+    getDefaultFilter,
+    getEmptyBook
 }
 
 function query(filterBy = {}) {
@@ -41,6 +43,14 @@ function get(bookID) {
 function remove(bookID) {
     return storageService.remove(BOOK_KEY, bookID)
 
+}
+
+function save(book){
+    if(book.id){
+        return storageService.put(BOOK_KEY, book)
+    }else{
+        return storageService.post(BOOK_KEY, book)
+    }
 }
 
 function getDefaultFilter(filterBy = { title: '', price: 0, category: '' }) {
@@ -78,8 +88,31 @@ function _createBooks() {
     utilService.saveToStorage(BOOK_KEY, books)
 }
 
-function  _setNextPrevBookId(book){
-        return storageService.query(BOOK_KEY).then((books) => {
+function getEmptyBook() {
+    const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
+    return {
+                title: '',
+                subtitle: utilService.makeLorem(4),
+                authors: [
+                    utilService.makeLorem(1)
+                ],
+                publishedDate: utilService.getRandomIntInclusive(1950, 2026),
+                description: utilService.makeLorem(20),
+                pageCount: '',
+                categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+                thumbnail: `./assets/img/${utilService.getRandomIntInclusive(1, 20)}.jpg`,
+                language: "en",
+                listPrice: {
+                    amount: utilService.getRandomIntInclusive(5, 550),
+                    currencyCode: "EUR",
+                    isOnSale: Math.random() > 0.7
+                }
+            } 
+
+}
+
+function _setNextPrevBookId(book) {
+    return storageService.query(BOOK_KEY).then((books) => {
         const bookIdx = books.findIndex((currbook) => currbook.id === book.id)
         const nextBook = books[bookIdx + 1] ? books[bookIdx + 1] : books[0]
         const prevBook = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]

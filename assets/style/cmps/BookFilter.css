@@ -6,6 +6,7 @@
     padding: 1em;
     background-color: lightblue;
     margin-block-start: 1em;
+    margin-block-end: 1em;
 }
 
 .book-filter p{

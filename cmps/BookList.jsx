@@ -13,7 +13,9 @@ export function BookList({ books, onRemoveBook }) {
                     <Link to={`/book/${book.id}`}>
                         <button className='btn-book-details'>Details</button>
                     </Link>
-
+                    <Link to={`/book/edit/${book.id}`}>
+                        <button className='btn-book-edit'>Edit</button>
+                    </Link>
                     <button
                         onClick={() => onRemoveBook(book.id)}
                         className='btn-remove'>x</button>
