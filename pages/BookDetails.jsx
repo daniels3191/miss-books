@@ -40,19 +40,13 @@ export function BookDetails() {
     function onRemoveReview(book, reviewId) {
 
         const reviewIdx = book.reviews.findIndex(review => review.id === reviewId)
-        console.log(reviewIdx);
         book.reviews.splice(reviewIdx, 1)
         bookService.save(book)
             .then(book => {
-                console.log(book);
-
                 showSuccessMsg(`The review on the book ${book.id} has been removed`)
                 navigate(`/book/${book.id}`)
             })
             .catch(err => showErrorMsg(`Couldn't remove the book review`))
-
-
-
     }
 
     if (!book) return <div className="loader">
@@ -73,14 +67,12 @@ export function BookDetails() {
         <p>Page Count: {book.pageCount} {pageCountDescription()}</p>
         <p className="price">Price: {book.listPrice.amount} {book.listPrice.isOnSale && <img src="./assets/img/sale-tag.svg" alt="" />}</p>
         <img src={book.thumbnail} alt="" />
-
         <div className="reviews">
             <h1>Reviews</h1>
             <ReviewList book={book} removeReview={onRemoveReview} />
             <Link to={`/book/review/${book.id}`}><button className="btn-add-review">Add review</button></Link>
 
         </div>
-
         <nav>
             <Link to={`/book/${book.prevBookId}`}><button>Prev</button></Link>
             <Link to={`/book/${book.nextBookId}`}><button>Next</button></Link>

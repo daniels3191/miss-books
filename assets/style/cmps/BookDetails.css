@@ -66,8 +66,11 @@
     }
 
     .rating {
-        width: 70px;
+        /* width: 70px; */
         margin: 0;
+    }
+      button {
+        margin-inline-start: auto;
     }
 }
 

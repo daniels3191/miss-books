@@ -4,7 +4,7 @@ const { Link } = ReactRouterDOM
 import { bookService } from '../services/book.service.js'
 import { BookFilter } from '../cmps/BookFilter.jsx'
 import { BookList } from '../cmps/BookList.jsx'
-import { eventBus, showSuccessMsg } from '../services/event-bus.service.js'
+import { showSuccessMsg } from '../services/event-bus.service.js'
 
 export function BookIndex() {
     const [books, setBooks] = useState(null)
@@ -43,8 +43,6 @@ export function BookIndex() {
             <BookList
                 books={books} onRemoveBook={onRemoveBook} />
         </React.Fragment>
-
-
     </div>
 }
 

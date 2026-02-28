@@ -50,7 +50,7 @@ export function AddReview() {
         <select id="rating" name="rating" type="text" required
             value={review.ratimg}
             onChange={handleChange}>
-            <option value="">None</option>
+            <option value=""></option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
