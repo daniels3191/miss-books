@@ -2,6 +2,7 @@ import { utilService } from './util.service.js';
 import { storageService } from './async-storage.service.js';
 
 const BOOK_KEY = 'bookDB'
+const REVIEW_KEY = 'reviewDB'
 _createBooks()
 
 export const bookService = {
@@ -10,7 +11,9 @@ export const bookService = {
     remove,
     save,
     getDefaultFilter,
-    getEmptyBook
+    getEmptyBook,
+    getEmptyReview,
+    addReview
 }
 
 function query(filterBy = {}) {
@@ -45,10 +48,10 @@ function remove(bookID) {
 
 }
 
-function save(book){
-    if(book.id){
+function save(book) {
+    if (book.id) {
         return storageService.put(BOOK_KEY, book)
-    }else{
+    } else {
         return storageService.post(BOOK_KEY, book)
     }
 }
@@ -91,25 +94,61 @@ function _createBooks() {
 function getEmptyBook() {
     const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion']
     return {
-                title: '',
-                subtitle: utilService.makeLorem(4),
-                authors: [
-                    utilService.makeLorem(1)
-                ],
-                publishedDate: utilService.getRandomIntInclusive(1950, 2026),
-                description: utilService.makeLorem(20),
-                pageCount: '',
-                categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
-                thumbnail: `./assets/img/${utilService.getRandomIntInclusive(1, 20)}.jpg`,
-                language: "en",
-                listPrice: {
-                    amount: utilService.getRandomIntInclusive(5, 550),
-                    currencyCode: "EUR",
-                    isOnSale: Math.random() > 0.7
-                }
-            } 
+        title: '',
+        subtitle: utilService.makeLorem(4),
+        authors: [
+            utilService.makeLorem(1)
+        ],
+        publishedDate: utilService.getRandomIntInclusive(1950, 2026),
+        description: utilService.makeLorem(20),
+        pageCount: '',
+        categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
+        thumbnail: `./assets/img/${utilService.getRandomIntInclusive(1, 20)}.jpg`,
+        language: "en",
+        listPrice: {
+            amount: utilService.getRandomIntInclusive(5, 550),
+            currencyCode: "EUR",
+            isOnSale: Math.random() > 0.7
+        }
+    }
 
 }
+function getEmptyReview(fullname = '', rating = '') {
+    return { fullname, rating }
+
+}
+
+function addReview(bookID, review) {
+    review.id = utilService.makeId()
+   return storageService.get(BOOK_KEY, bookID)
+        .then(book => {
+           if (book.reviews) {
+            book.reviews.push(review)
+           }else{
+            book.reviews = [review]
+           }
+           
+            return storageService.put(BOOK_KEY, book)
+        })
+
+    // let reviews = utilService.loadFromStorage(REVIEW_KEY) || {}
+    // if (reviews[bookId]) {
+    //     reviews[bookId].push(review)
+    // } else {
+    //     reviews[bookId] = [review]
+    // }
+    // utilService.saveToStorage(REVIEW_KEY, reviews)
+}
+
+// function getBookReviews(bookID) {
+//     return storageService.get(REVIEW_KEY, bookID)
+//         .then(reviews => {
+//             console.log(reviews);
+
+//             return reviews
+//         })
+
+// }
 
 function _setNextPrevBookId(book) {
     return storageService.query(BOOK_KEY).then((books) => {

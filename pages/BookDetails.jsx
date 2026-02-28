@@ -1,21 +1,23 @@
 const { useState, useEffect } = React
-const { Link, useParams } = ReactRouterDOM
+const { Link, useParams, useNavigate } = ReactRouterDOM
 
 import { bookService } from '../services/book.service.js'
 import { LongTxt } from "../cmps/LongTxt.jsx"
+import { ReviewList } from '../cmps/ReviewList.jsx'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 export function BookDetails() {
 
     const [book, setBook] = useState(null)
 
     const params = useParams()
-    console.log(params);
+    const navigate = useNavigate()
 
     useEffect(() => {
         bookService.get(params.id)
             .then(setBook)
 
-    }, [book])
+    }, [params.id])
 
     function pageCountDescription() {
         let str = ''
@@ -35,11 +37,27 @@ export function BookDetails() {
         return str
     }
 
+    function onRemoveReview(book, reviewId) {
+
+        const reviewIdx = book.reviews.findIndex(review => review.id === reviewId)
+        console.log(reviewIdx);
+        book.reviews.splice(reviewIdx, 1)
+        bookService.save(book)
+            .then(book => {
+                console.log(book);
+
+                showSuccessMsg(`The review on the book ${book.id} has been removed`)
+                navigate(`/book/${book.id}`)
+            })
+            .catch(err => showErrorMsg(`Couldn't remove the book review`))
+
+
+
+    }
+
     if (!book) return <div className="loader">
         <img src="./assets/img/loader.svg" alt="" />
     </div>
-
-    console.log(book);
 
     return <article className="book-details">
 
@@ -48,11 +66,21 @@ export function BookDetails() {
         <h2>{book.subtitle}</h2>
         <p>Authors: {book.authors}</p>
         <p>Publishe Date: {book.publishedDate} {pablishedDateDescription()}</p>
-        {/* <p>Description: {book.description}</p> */}
-        <p className="description">Description: <LongTxt txt={book.description} /></p>
+        <div className="description">
+            <span>Description: </span>
+            <LongTxt txt={book.description} />
+        </div>
         <p>Page Count: {book.pageCount} {pageCountDescription()}</p>
         <p className="price">Price: {book.listPrice.amount} {book.listPrice.isOnSale && <img src="./assets/img/sale-tag.svg" alt="" />}</p>
         <img src={book.thumbnail} alt="" />
+
+        <div className="reviews">
+            <h1>Reviews</h1>
+            <ReviewList book={book} removeReview={onRemoveReview} />
+            <Link to={`/book/review/${book.id}`}><button className="btn-add-review">Add review</button></Link>
+
+        </div>
+
         <nav>
             <Link to={`/book/${book.prevBookId}`}><button>Prev</button></Link>
             <Link to={`/book/${book.nextBookId}`}><button>Next</button></Link>

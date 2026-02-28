@@ -31,9 +31,8 @@ export function BookFilter({ filterBy, setFilterBy }) {
         <label htmlFor="categories">Category:</label>
         <select id="categories" name="category" type='text'
             value={filterByToEdit.category}
-            onChange={ev => handleChange(ev)}
-            placeholder='category'>
-            {/* <option value={filterByToEdit.title} selected>{filterByToEdit.title}</option> */}
+            onChange={ev => handleChange(ev)}>
+            <option value="">All</option>
             <option value="Love">Love</option>
             <option value="Fiction">Fiction</option>
             <option value="Poetry">Poetry</option>

@@ -11,13 +11,28 @@
     width: 1rem;
     margin-inline-start: 1rem;
     margin-block-end: 0;
-    
+
 }
 
 .book-details .description {
-    padding-block-start: 10px;
+    padding: 10px;
     border-top: 2px solid;
     border-bottom: 2px solid;
+
+}
+
+.book-details .reviews {
+    padding: 10px 0;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .btn-add-review {
+        margin-block-start: 10px;
+    }
 }
 
 .book-details .btn-clear-selected-book {
@@ -31,8 +46,40 @@
 .book-details nav {
     display: flex;
     align-items: center;
+    margin-block-start: 15px;
 
     a:last-child {
         margin-inline-start: auto;
     }
+}
+
+.review-list {
+    background-color: antiquewhite;
+}
+
+.review-container {
+    display: flex;
+
+    .name {
+        width: 200px;
+        margin: 0;
+    }
+
+    .rating {
+        width: 70px;
+        margin: 0;
+    }
+}
+
+
+.review-list li {
+    padding: 5px;
+    &:nth-child(2n +1) {
+        background-color: var(--clr1bg);
+    }
+    &:nth-child(2n) {
+        background-color: var(--clr1bg-light);
+    }
+
+
 }
