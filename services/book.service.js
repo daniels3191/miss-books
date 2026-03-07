@@ -15,7 +15,8 @@ export const bookService = {
     getEmptyBook,
     getEmptyReview,
     addReview,
-    removeReview
+    removeReview,
+    getFilterFromSearchParms
 }
 
 function query(filterBy = {}) {
@@ -141,9 +142,15 @@ function removeReview(bookId, reviewId) {
             book.reviews = filteredReviews
            return save(book)
         })
+}
 
-
-
+function getFilterFromSearchParms(searchParams){
+    const defaultFilter = getDefaultFilter()
+    const filterby ={}
+    for (const field in defaultFilter) {
+        filterby[field] = searchParams.get(field) || ''   
+    }
+    return filterby
 }
 
 // function getBookReviews(bookID) {

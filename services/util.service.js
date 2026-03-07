@@ -6,7 +6,9 @@ export const utilService = {
     getRandomIntInclusive,
     getDayName,
     getMonthName,
-    animateCSS
+    animateCSS,
+    trimObj
+
 }
 
 function makeId(length = 6) {
@@ -71,4 +73,15 @@ function animateCSS(el, animation='bounce') {
 
         el.addEventListener('animationend', handleAnimationEnd, { once: true })
     })
+}
+
+function trimObj(obj){
+    const trimmedObj = {}
+
+for (const key in obj) {
+    if(obj[key]) trimmedObj[key] = obj[key]
+}
+
+return trimmedObj
+
 }
