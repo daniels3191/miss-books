@@ -39,12 +39,11 @@ export function BookDetails() {
 
     function onRemoveReview(book, reviewId) {
 
-        const reviewIdx = book.reviews.findIndex(review => review.id === reviewId)
-        book.reviews.splice(reviewIdx, 1)
-        bookService.save(book)
-            .then(book => {
+        bookService.removeReview(book.id, reviewId)
+            .then(() => {      
+                const filteredReviews = book.reviews.filter(review => review.id !== reviewId)
+                setBook({ ...book, reviews: filteredReviews })
                 showSuccessMsg(`The review on the book ${book.id} has been removed`)
-                navigate(`/book/${book.id}`)
             })
             .catch(err => showErrorMsg(`Couldn't remove the book review`))
     }

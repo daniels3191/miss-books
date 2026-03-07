@@ -28,7 +28,7 @@ export function AddReview() {
     function onSaveReview(ev) {
         ev.preventDefault()
         bookService.addReview(book.id, review)
-            .then(book => {
+            .then(() => {
                 showSuccessMsg(`The review for the book ${book.id} has been saved`)
                 navigate(`/book/${book.id}`)
             })

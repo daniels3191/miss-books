@@ -10,10 +10,12 @@ export const bookService = {
     get,
     remove,
     save,
+
     getDefaultFilter,
     getEmptyBook,
     getEmptyReview,
-    addReview
+    addReview,
+    removeReview
 }
 
 function query(filterBy = {}) {
@@ -120,24 +122,28 @@ function getEmptyReview(fullname = '', rating = '') {
 
 function addReview(bookID, review) {
     review.id = utilService.makeId()
-   return storageService.get(BOOK_KEY, bookID)
+    return get(bookID)
         .then(book => {
-           if (book.reviews) {
-            book.reviews.push(review)
-           }else{
-            book.reviews = [review]
-           }
-           
-            return storageService.put(BOOK_KEY, book)
+            if (book.reviews) {
+                book.reviews.push(review)
+            } else {
+                book.reviews = [review]
+            }
+            return save(book)
+                .then(() => review)
+        })
+}
+
+function removeReview(bookId, reviewId) {
+    return get(bookId)
+        .then(book => {
+            const filteredReviews = book.reviews.filter(review => review.id !== reviewId)
+            book.reviews = filteredReviews
+           return save(book)
         })
 
-    // let reviews = utilService.loadFromStorage(REVIEW_KEY) || {}
-    // if (reviews[bookId]) {
-    //     reviews[bookId].push(review)
-    // } else {
-    //     reviews[bookId] = [review]
-    // }
-    // utilService.saveToStorage(REVIEW_KEY, reviews)
+
+
 }
 
 // function getBookReviews(bookID) {
